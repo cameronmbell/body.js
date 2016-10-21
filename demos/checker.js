@@ -1,36 +1,46 @@
 //This is a demo that shows the collision checking functions
 
 //The different shapes that will be used
-var mainBox = null;
-var staticBox = null;
+var mainCircle = null;
+var staticCircle = null;
 
 //Create the objects
 function setup()
 {
     //Init
     createCanvas(640, 480);
+    ellipseMode(CENTER);
     noStroke();
 
     //Create
-    staticBox = new AABB(new Vector2(100, 100), new Vector2(150, 150));
-    mainBox = new AABB(new Vector2(0, 0), new Vector2(50, 50));
+    staticCircle = new Circle(new Vector2(100, 100), 20);
+    mainCircle = new Circle(new Vector2(0, 0), 50);
 }
+
+//Timer
+var time = 0;
 
 //Update
 function draw()
 {
     //Reset
     clear();
+    background(230);
 
     //Move the box
-    mainBox.min = new Vector2(mouseX,      mouseY);
-    mainBox.max = new Vector2(mouseX + 50, mouseY + 50);
+    mainCircle.position = new Vector2(mouseX, mouseY);
 
     //Draw collision check
-    if(AABB.CheckCollision(mainBox, staticBox)) fill(255, 100, 100);
-    else                                        fill(100, 100, 255);
+    if(Circle.CheckCollision(mainCircle, staticCircle)) fill(255, 100, 100);
+    else                                                fill(100, 100, 255);
 
     //Draw
-    rect(staticBox.min.x, staticBox.min.y, 50, 50);
-    rect(mainBox.min.x, mainBox.min.y, 50, 50);
+    ellipse(staticCircle.position.x, staticCircle.position.y, staticCircle.radius * 2);
+    ellipse(mainCircle.position.x, mainCircle.position.y, mainCircle.radius * 2);
+
+    //Do some random garbage
+    staticCircle.position.x = Mathf.Bounce(time * 2, staticCircle.radius, width - staticCircle.radius);
+    staticCircle.position.y = Mathf.Bounce(time * 2, staticCircle.radius, height - staticCircle.radius);
+
+    time += 1;
 }
