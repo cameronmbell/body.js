@@ -3,4 +3,4 @@
 
 ---
 
-A high performance physics engine aimed at versatility. Weather you are simulating the universe or adding physics to a platformer - body.js gives you the tools and power to reach your goals. A diverse approach to physics concepts means that the applications of body.js are limitless.
+A high performance physics engine aimed at versatility. Whether you are simulating the universe or adding physics to a platformer - body.js gives you the tools and power to reach your goals. A diverse approach to physics concepts means that the applications of body.js are limitless.
