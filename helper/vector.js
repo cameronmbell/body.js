@@ -1,30 +1,30 @@
-//These are classes that can be used to make calculations easier
+//This is a class that can be used to make 2D calculations easier
 function Vector2(x, y)
 {
     //This is a 2D Engine
     this.x = x;
     this.y = y;
-
-    //Public functions
-    this.ArrayRef = function(index) { return (index == 0)? this.x : this.y; }
-    this.Magnitude = function() { return Mathf.Sqrt((this.x * this.x) + (this.y * this.y)); }
-    this.SqrMagnitude = function() { return (this.x * this.x) + (this.y * this.y); }
-    this.Normalize = function()
-    {
-        var result = new Vector2(0, 0);
-        var mag = this.Magnitude();
-
-        //Apply
-        result.x = this.x / mag;
-        result.y = this.y / mag;
-
-        //Done
-        return result;
-    }
-
-    //Make sure that a pointer is not returned
-    this.Clone = function() { return new Vector2(this.x, this.y); }
 }
+
+//Public non static functions
+Vector2.prototype.ArrayRef = function(index) { return (index == 0)? this.x : this.y; }
+Vector2.prototype.Magnitude = function() { return Mathf.Sqrt((this.x * this.x) + (this.y * this.y)); }
+Vector2.prototype.SqrMagnitude = function() { return (this.x * this.x) + (this.y * this.y); }
+Vector2.prototype.Normalize = function()
+{
+    var result = new Vector2(0, 0);
+    var mag = this.Magnitude();
+
+    //Apply
+    result.x = this.x / mag;
+    result.y = this.y / mag;
+
+    //Done
+    return result;
+}
+
+//Make sure that a pointer is not returned
+Vector2.prototype.Clone = function() { return new Vector2(this.x, this.y); }
 
 //Static variables, this would be used for operator overloading, if JS supported it
 Vector2.zero = new Vector2(0, 0);
@@ -52,8 +52,12 @@ Vector2.Max = function(l, r) { return new Vector2((l.x > r.x) ? l.x : r.x, (l.y 
 Vector2.Min = function(l, r) { return new Vector2((l.x < r.x) ? l.x : r.x, (l.y < r.y) ? l.y : r.y); }
 Vector2.MoveTowards = function(c, t, d) { return new Vector2(Mathf.MoveTowards(c.x, t.x, d), Mathf.MoveTowards(c.y, t.y, d)); }
 
+//Helpful static functions
+Vector2.RoundInt = function(vec) { return new Vector2(vec.x, vec.y); }
+Vector2.Random = function() { return new Vector2(Rand.Value(), Rand.Value()); }
+
 //This will find the reflection of a vector based on a normal provided:
-// V  N   R
+//  V  N   R
 //  \  |  /
 //   \ | /
 //    \|/
@@ -68,10 +72,6 @@ Vector2.Reflect = function(velocity, normal)
     //R = -2*(V dot N)*N + V
     return Vector2.Add(Vector2.Mul(-2 * Vector2.Dot(velocity, normal), normal), velocity);
 }
-
-//Helpful static functions
-Vector2.RoundInt = function(vec) { return new Vector2(vec.x, vec.y); }
-Vector2.Random = function() { return new Vector2(Rand.Value(), Rand.Value()); }
 
 //Operator overloading, kinda
 Vector2.AddOperator = function(result, val) { return result += val; }

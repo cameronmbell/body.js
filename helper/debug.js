@@ -1,30 +1,31 @@
 //Wrapper (static) class for now, but later physics body outlines will be added
-var Debug = 
+var Debug =
 {
     //Properties when logging
     backgroundColour : 'white',
     textColour : 'black',
     fontSize : 'normal',
-    
+
     //Holds the current debug string
-    GenerateDebugFormatting : function() 
-    { 
+    GenerateDebugFormatting : function()
+    {
         //Create CSS Style info for the text
         return 'color: ' + Debug.textColour + ';' +
                'font-size: ' + Debug.fontSize + ';' +
-               'background: ' + Debug.backgroundColour + ';'; 
+               'background: ' + Debug.backgroundColour + ';';
     },
-    
+
     //Will reset the formatting properties
-    ResetFormatting : function() 
+    ResetFormatting : function()
     {
         //Revert back to defualt values
         Debug.backgroundColour = 'white';
         Debug.textColour = 'black';
         Debug.fontSize = 'normal';
     },
-    
+
     //Wrappers
+    RawLog : function(data) { console.log(data); },
     Log : function(text) { console.log('%c' + text, Debug.GenerateDebugFormatting()); },
     Warning : function(text) { console.warn('%c' + text, Debug.GenerateDebugFormatting()); },
     Error : function(text) { console.error('%c' + text, Debug.GenerateDebugFormatting()); },
@@ -33,4 +34,4 @@ var Debug =
     Spacer : function() { Debug.Log("\n") },
     CreateGroup: function(name) { console.group(name); },
     EndGroup: function() { console.groupEnd(); },
-};  
+};
