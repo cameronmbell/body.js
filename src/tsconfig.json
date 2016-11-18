@@ -1,0 +1,28 @@
+{
+    "compileOnSave": true,
+    
+    "compilerOptions": 
+    {
+        "module": "system",
+        "target": "es5",
+        "noImplicitAny": false,
+        "sourceMap": false,
+        "outFile": "../build/body.js",
+        "watch": true
+    },
+
+    "files": 
+    [
+        //Helper classes
+        "helper/debug.ts",
+        "helper/mathf.ts",
+        "helper/rand.ts",
+        "helper/vector.ts",
+        "helper/misc.ts",
+        
+        //Core program
+        "engine/core.ts",
+        "engine/collision.ts",
+        "engine/rigidbody.ts"
+    ]
+}

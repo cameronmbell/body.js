@@ -1,10 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- Meta information -->
+        <title>Checker Demo</title>
+
+        <!-- Because body.js is a physics engine, some libs are required for creating graphics... -->
+        <script type="text/javascript" src="libs/stats.min.js"></script>
+        <script type="text/javascript" src="libs/p5.min.js"></script>
+
+        <!-- Actually use body.js -->
+        <script type="text/javascript" src="../build/body.js"></script>
+
+<!-- The source for this specific demo -->
+<script type="text/javascript">
+
 //Test
 function setup()
 {
     //Testing out the debug class
     Debug.backgroundColour = "purple";
     Debug.textColour = 'white';
-    Debug.Log(" RestitutionJS Running... ");
+    Debug.Log(" body.js is running... ");
     Debug.ResetFormatting();
     
     Debug.CreateGroup('Debug Testing');
@@ -115,3 +132,9 @@ function setup()
     Debug.Log("Approximatly(3.0, Sqrt(9)): " + Mathf.Approximatly(3.0, Mathf.Sqrt(9)));
     Debug.EndGroup();
 };
+
+</script>
+
+    </head>
+    <body></body>
+</html>

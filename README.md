@@ -1,5 +1,5 @@
 ![body.js](https://raw.githubusercontent.com/cameron-bell/body.js/master/img/Logo.png)
-> A physics engine for any project
+> Neatly integrate physics into your project
 
 ---
 

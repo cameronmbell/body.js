@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- Meta information -->
+        <title>Checker Demo</title>
+
+        <!-- Because body.js is a physics engine, some libs are required for creating graphics... -->
+        <script type="text/javascript" src="libs/stats.min.js"></script>
+        <script type="text/javascript" src="libs/p5.min.js"></script>
+
+        <!-- Actually use body.js -->
+        <script type="text/javascript" src="../build/body.js"></script>
+
+<!-- The source for this specific demo -->
+<script type="text/javascript">
+
+//Create the object
+var test;
+
+function setup()
+{
+    test = new Body();
+    test.AddComponent(RectCollider);
+    test.AddComponent(Rigidbody);
+    test.TestComponents();
+
+    test.RemoveComponent(Rigidbody);
+    test.GetComponent(RectCollider).size = new Vector2(10, 10);
+
+    Debug.Spacer();
+    test.TestComponents();
+}
+
+</script>
+
+    </head>
+    <body></body>
+</html>
