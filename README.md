@@ -1,4 +1,4 @@
-![body.js](https://raw.githubusercontent.com/cameron-bell/body.js/master/img/Logo.png)
+![body.js](https://raw.githubusercontent.com/cameron-bell/body.js/master/misc/Logo.png)
 > Neatly integrate physics into your project
 
 ---
