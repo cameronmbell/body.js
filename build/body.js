@@ -475,19 +475,106 @@ var Vector2 = (function () {
     Vector2.down = new Vector2(0, -1);
     return Vector2;
 }());
-//This allows for inheritance in a prototype based model
-function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor;
-    ctor.prototype = Object.create(superCtor.prototype, {
-        constructor: {
-            value: ctor,
-            enumerable: false,
-            writable: true,
-            configurable: true
-        }
+/*
+    Copyright 2016 Cameron Bell - Obtuse Studios
+
+    This file is subject to the terms and conditions defined in
+    file 'LICENSE', which is part of this source code package.
+
+    The specific goal of this file is to:
+        - Create a scene graph
+        - Create a heirachy structure in the engine
+        - Define nodes in the scene graph
+        - Define the transform for any body
+*/
+//Anything in the engine must inherit from this
+var Base = (function () {
+    //Constructor does nothing
+    function Base(name) {
+        if (name === void 0) { name = "new"; }
+        //Evey thing in the engine needs to have these properties
+        this.name = "";
+        //Any object gets a unique instance ID
+        this.instanceID = Base.instanceCounter;
+        this.name = name;
+    }
+    Object.defineProperty(Base, "instanceCounter", {
+        get: function () { Base._instanceCounter += 1; return Base._instanceCounter; },
+        enumerable: true,
+        configurable: true
     });
-}
-;
+    //A function for cloning the current object
+    Base.prototype.Clone = function () {
+        //Get the constructror for the class
+        var result = new this.constructor;
+        //Loop though all attributes
+        for (var attribute in this) {
+            //Replace all properties
+            if (typeof (this[attribute]) == 'object') {
+                result[attribute] = this.Clone();
+            }
+        }
+        //Done
+        return result;
+    };
+    //A function for converting the class into a printable string
+    Base.prototype.ToString = function () { return this.name + " : " + this.constructor.name + " - InstanceID : " + this.instanceID; };
+    Base.prototype.Destroy = function () { delete this; };
+    //Static functions
+    Base.Destroy = function (object) { object.Destroy(); };
+    Base.Instantiate = function (original) { return original.Clone(); };
+    //This static function holds the current instance ID
+    Base._instanceCounter = 0;
+    return Base;
+}());
+//This is the base class for any possible node in the scene graph
+var SceneNode = (function (_super) {
+    __extends(SceneNode, _super);
+    //Construct and destruct - not supported as of ECMA 6
+    function SceneNode() {
+        _super.call(this);
+        //Private properties
+        this._children = [];
+    }
+    //Needs to update all children
+    SceneNode.prototype.Update = function () {
+        for (var i = 0; i < this._children.length; i++) {
+            this._children[i].Update();
+        }
+    };
+    // --  Functions for interacting with children --
+    //This function will remove the node from the scene
+    //Serves to delete all children of the current node
+    SceneNode.prototype.Destroy = function () {
+        //Remove all children
+        for (var i = 0; i < this._children.length; i++) {
+            this._children[i].Destroy();
+        }
+        this._children = [];
+    };
+    //Will add an element to the children list
+    SceneNode.prototype.AddChild = function (child) { this._children.push(child); };
+    return SceneNode;
+}(Base));
+//Any component - remeber this is different from a body has these properties
+var Component = (function () {
+    function Component() {
+        this.foo = 4;
+    }
+    return Component;
+}());
+//The transform class holds properties about the 3 axis of freedom
+var Transform = (function () {
+    //Constructor set properties
+    function Transform(position, scale, rot) {
+        if (position === void 0) { position = Vector2.zero; }
+        if (scale === void 0) { scale = Vector2.one; }
+        if (rot === void 0) { rot = 0.0; }
+        this.position = position;
+        this.scale = scale, this.rotation = rot;
+    }
+    return Transform;
+}());
 /*
     Copyright 2016 Cameron Bell - Obtuse Studios
 
@@ -498,12 +585,14 @@ function inherits(ctor, superCtor) {
         - Create a scene graph
         - A base class for a component system
 */
-//All components that can be added to a body inherit from this..
-var Component = (function () {
-    function Component() {
-    }
-    return Component;
-}());
+/*All components that can be added to a body inherit from this..
+abstract class Component
+{
+    //None yet..
+    public name : string;
+    constructor() { }
+}
+*/
 //Any body consists of a rigidbody and a colliders
 //This is temporary
 var Body = (function () {
@@ -523,25 +612,12 @@ var Body = (function () {
         for (var key in this._components) {
             if (this._components.hasOwnProperty(key)) {
                 Debug.CreateGroup(key);
-                ;
                 Debug.RawLog(this._components[key]);
                 Debug.EndGroup();
             }
         }
     };
     return Body;
-}());
-//The transform class holds properties about the 3 axis of freedom
-var Transform = (function () {
-    //Constructor set properties
-    function Transform(position, scale, rot) {
-        if (position === void 0) { position = Vector2.zero; }
-        if (scale === void 0) { scale = Vector2.one; }
-        if (rot === void 0) { rot = 0.0; }
-        this.position = position;
-        this.scale = scale, this.rotation = rot;
-    }
-    return Transform;
 }());
 //Stores the types of colliders
 var ColliderType;

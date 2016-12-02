@@ -18,10 +18,10 @@
         "helper/mathf.ts",
         "helper/rand.ts",
         "helper/vector.ts",
-        "helper/misc.ts",
         
         //Core program
-        "engine/core.ts",
+        "engine/scene.ts",
+        "engine/body.ts",
         "engine/collision.ts",
         "engine/rigidbody.ts"
     ]

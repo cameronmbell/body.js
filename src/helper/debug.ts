@@ -44,5 +44,5 @@ namespace Debug
     export function Clear() : void                  { console.clear(); }; //Removes all data from the console
     export function Spacer() : void                 { Debug.Log("\n") }; //Creates a blank space in the console, good for organising data
     export function EndGroup() : void               { console.groupEnd(); }; //Will end the current group (like a tree structure)
-    export function CreateGroup(name : string) : void { console.group(name); }; //Will create the beggining of a group (like a tree structure)
+    export function CreateGroup(name : string):void { console.group(name); }; //Will create the beggining of a group (like a tree structure)
 }

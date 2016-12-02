@@ -3,7 +3,7 @@
 <html>
     <head>
         <!-- Meta information -->
-        <title>Checker Demo</title>
+        <title>Scene Demo</title>
 
         <!-- Because body.js is a physics engine, some libs are required for creating graphics... -->
         <script type="text/javascript" src="libs/stats.min.js"></script>
@@ -20,16 +20,24 @@ var test;
 
 function setup()
 {
-    test = new Body();
-    test.AddComponent(RectCollider);
-    test.AddComponent(Rigidbody);
-    test.TestComponents();
+    var walt = new Base("Walt");
+    var cam = new Base("Cameron");
 
-    test.RemoveComponent(Rigidbody);
-    test.GetComponent(RectCollider).size = new Vector2(10, 10);
+    var sn = new SceneNode();
+    sn.name = "SN";
 
-    Debug.Spacer();
-    test.TestComponents();
+    var jessie = walt.Clone();
+    jessie.name = "Jessie";
+
+    //Check progress
+    Debug.Log(walt.ToString());
+    Debug.Log(cam.ToString());
+    Debug.Log(sn.ToString());
+    Debug.Log(jessie.ToString());
+
+    Base.Destroy(jessie);
+
+    Debug.RawLog(jessie);
 }
 
 </script>

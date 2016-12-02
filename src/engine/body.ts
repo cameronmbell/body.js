@@ -9,13 +9,14 @@
         - A base class for a component system
 */
 
-//All components that can be added to a body inherit from this..
+/*All components that can be added to a body inherit from this..
 abstract class Component
 {
     //None yet..
     public name : string;
     constructor() { }
 } 
+*/
 
 //Any body consists of a rigidbody and a colliders
 //This is temporary
@@ -40,25 +41,10 @@ class Body
         {
             if (this._components.hasOwnProperty(key))
             {
-                Debug.CreateGroup(key);;
+                Debug.CreateGroup(key);
                 Debug.RawLog(this._components[key]);
                 Debug.EndGroup();
             }
         }
     }
-}
-
-//The transform class holds properties about the 3 axis of freedom
-class Transform
-{
-    //Public properties
-    public position : Vector2; //The position of the object in world space
-    public rotation : number; //Rotation of the shape in degrees
-    public scale : Vector2; //The scale vertically and horizontally
-
-    //Constructor set properties
-    constructor(position=Vector2.zero, scale=Vector2.one, rot=0.0) { this.position = position; this.scale = scale, this.rotation = rot; }
-
-    //These are the public functions
-    //None yet, but these will later make calculation easier
 }

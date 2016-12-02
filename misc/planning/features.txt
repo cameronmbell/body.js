@@ -1,0 +1,28 @@
+This is a to do list for all the features required for a good physics engine
+Any item that has been finished will start with: '$'
+Any item that is in progress will start with:    '%'
+
+- % Scene graph - inspired by Unity3D: (engine/scene.ts)
+    > Have deep multilevel inheritance for all classes
+    > Transform changes are propogated down the scene graph
+    > Clean interaction between a class (proferably named 'Scene')
+    > Child and parent system
+    > Component structure, so that components can be added to an body for example:
+        = A Rigidbody component could be added to a body
+            ~ This would need a reference to a collider component to work properly
+
+- Collision detection: (engine/collision.ts)
+    > Should work for all different types of colliders
+        = Collision detection performance should not be affected by the number of collider types
+        = Do not just use a loop with an if statment please!
+        = Performace of a collision detection check should be: O(|1|)
+    > Should be using a sophisticated algorithm such as 'Separating axis therum'
+        = Adjust the accuracy and speed of a collision check
+            ~ This allows for a broad and narrow phase collision check
+        = Work for all shapes
+            ~ Specific shapes such as: circles, boxes, convex etc.. should be optimized
+
+- Collision resolution: (engine/rigidbody.ts)
+    > ?
+    > ?
+    > ?
